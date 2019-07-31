@@ -18,14 +18,12 @@ filename = '4-methylimidazole.mol' # .mol file
 cv = openbabel.OBConversion()
 cv.SetInAndOutFormats('mol', 'sdf') # .sdf file is where all conformers will be written to
 cv.ReadFile(mol, filename) # .mol file is read
-bd = openbabel.OBBuilder()
-bd.Build(mol)
-mol.SetDimension(3) 
 ff = openbabel.OBForceField.FindForceField("MMFF94") # Here we choose the MMFF94 force field
+ff.SetLogLevel(openbabel.OBFF_LOGLVL_LOW)
+ff.SetLogToStdErr()
 ff.Setup(mol)
-ff.SystematicRotorSearch(20) #20 conformers are searched
+ff.WeightedRotorSearch(25,500) #25 conformers are searched per 500 geometric steps
 ff.GetConformers(mol)
-ff.UpdateCoordinates(mol)
 cv.WriteFile(mol, 'CONF.sdf') # Conformers are written
 
 EOF
