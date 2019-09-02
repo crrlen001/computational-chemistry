@@ -1,4 +1,0 @@
-%mem=10GB
-%nprocs=40
-%chk=conf-x.chk
-#b3lyp/6-31G* opt=tight scf=tight freq
